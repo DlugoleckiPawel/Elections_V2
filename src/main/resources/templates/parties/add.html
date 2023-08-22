@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Dodaj</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="mb-4">Dodaj Partię Politycznę</h1>
+  <form th:action="@{/parties/add}" method="post" th:object="${politicalParty}">
+    <div class="form-group">
+      <input type="text" th:field="*{name}"
+             placeholder="Nazwa" class="form-control mb-4 col-4">
+    </div>
+    <div class="form-group">
+      <button class="btn btn-success" type="submit">Dodaj</button>
+    </div>
+    <div class="form-group text-center">
+      <a th:href="@{/parties}" class="btn btn-primary">PODGLĄD</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

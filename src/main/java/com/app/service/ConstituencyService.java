@@ -45,7 +45,7 @@ public class ConstituencyService {
         return constituencyDto;
     }
 
-    // POBIERANIE OKRĘGU WYBORCZEGO
+    // POBIERANIE OKRĘGÓW WYBORCZYCH
     public List<ConstituencyDto> getAllConstituencies() {
         final List<Constituency> all = constituencyRepository.findAll();
 
