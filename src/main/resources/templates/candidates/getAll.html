@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Podgląd</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4">Lista Kandydatów</h1>
+    <a th:href="@{/candidates/add}" class="btn btn-primary btn-sm mb-3">Dodaj Nowego Kandydata</a>
+    <table class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Wybierz</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="candidate : ${candidates}">
+            <td th:text="${candidate.name}"></td>
+            <td th:text="${candidate.surname}"></td>
+            <td>
+                <a th:href="@{candidates/update/{id}(id=${candidate.id})}" class="btn btn-primary btn-sm mr-2">Aktualizuj</a>
+                <a th:href="@{candidates/delete/{id}(id=${candidate.id})}" class="btn btn-danger btn-sm">Usuń</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
