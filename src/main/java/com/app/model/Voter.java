@@ -14,10 +14,12 @@ public class Voter {
     @GeneratedValue
     private Long id;
 
-    private Integer pesel;
+    private String pesel;
     private Integer age;
+
     @Enumerated(EnumType.STRING)
     private Education education;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
