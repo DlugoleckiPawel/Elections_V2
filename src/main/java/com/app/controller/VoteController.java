@@ -1,8 +1,10 @@
 package com.app.controller;
 
+import com.app.dto.CandidateDto;
 import com.app.dto.VoterDto;
 import com.app.exception.TokenExpiredException;
 import com.app.exception.TokenNotFoundException;
+import com.app.service.CandidateService;
 import com.app.service.TokenService;
 import com.app.service.VoterService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 public class VoteController {
     private final VoterService voterService;
     private final TokenService tokenService;
+    private final CandidateService candidateService;
 
     /**
      * Metoda get do wyświetlenia wyborców oraz możliwość ich zarejestrowania
@@ -49,7 +52,10 @@ public class VoteController {
         try {
             VoterDto voterDto = voterService.getVoterById(id);
             tokenService.isTokenValidForToken(voterDto, token);
-            return "votes/confirmation";
+
+            List<CandidateDto> candidateForVoter = candidateService.getCandidateForVoter(voterDto);
+            model.addAttribute("candidates", candidateForVoter);
+            return "votes/showCandidates";
 
         } catch (TokenNotFoundException e) {
             model.addAttribute("error", "Podano niepoprawny token");
