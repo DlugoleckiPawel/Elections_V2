@@ -3,6 +3,7 @@ package com.app.service;
 import com.app.dto.CandidateDto;
 import com.app.dto.ConstituencyDto;
 import com.app.dto.PoliticalPartyDto;
+import com.app.dto.VoterDto;
 import com.app.mapper.CandidateMapper;
 import com.app.mapper.ConstituencyMapper;
 import com.app.mapper.PoliticalPartyMapper;
@@ -102,5 +103,14 @@ public class CandidateService {
     // USUWANIE KANDYDATA
     public void deleteCandidateById(Long id) {
         candidateRepository.deleteById(id);
+    }
+
+    public List<CandidateDto> getCandidateForVoter(VoterDto voterDto) {
+        Long constituencyId = voterDto.getConstituencyDto().getId();
+
+         return getAllCandidates()
+                .stream()
+                .filter(candidate -> candidate.getConstituencyDto().getId().equals(constituencyId))
+                .toList();
     }
 }

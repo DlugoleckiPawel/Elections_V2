@@ -17,12 +17,16 @@
         <tr>
             <th>Nazwa</th>
             <th>Wybierz</th>
+            <th>Okręg Wyborczy</th>
+            <th>Partia Polityczna</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="candidate : ${candidates}">
             <td th:text="${candidate.name}"></td>
             <td th:text="${candidate.surname}"></td>
+            <td th:text="${candidate.constituencyDto.name}"></td>
+            <td th:text="${candidate.politicalPartyDto.name}"></td>
             <td>
                 <a th:href="@{candidates/update/{id}(id=${candidate.id})}" class="btn btn-primary btn-sm mr-2">Aktualizuj</a>
                 <a th:href="@{candidates/delete/{id}(id=${candidate.id})}" class="btn btn-danger btn-sm">Usuń</a>
