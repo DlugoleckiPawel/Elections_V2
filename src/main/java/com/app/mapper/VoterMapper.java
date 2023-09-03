@@ -38,7 +38,7 @@ public class VoterMapper {
                 .build();
     }
 
-    public List<VoterDto> toListDto(Collection<Voter> voters) {
+    public static List<VoterDto> toListDto(Collection<Voter> voters) {
         if (voters == null) {
             return null;
         }
