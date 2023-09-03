@@ -24,7 +24,7 @@ public class VoterController {
     private final ConstituencyService constituencyService;
 
     @GetMapping("/add")
-    public String add(Model model){
+    public String add(Model model) {
         model.addAttribute("voter", new VoterDto());
         model.addAttribute("constituencies", constituencyService.getAllConstituencies());
         model.addAttribute("genders", Gender.values());

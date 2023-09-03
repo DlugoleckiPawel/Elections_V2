@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Wyborców</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4">Lista Wyborców</h1>
+    <table class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Pesel</th>
+            <th>Wiek</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="voter : ${voters}">
+            <td th:text="${voter.id}"></td>
+            <td th:text="${voter.pesel}"></td>
+            <td th:text="${voter.age}"></td>
+            <td>
+                <a th:href="@{/votes/register/{id}(id=${voter.id})}" class="btn btn-primary btn-sm">ZAREJESTRUJ</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

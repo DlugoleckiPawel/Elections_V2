@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -20,9 +23,7 @@ public class VoterService {
     private final VoterRepository voterRepository;
     private final ConstituencyRepository constituencyRepository;
 
-    private final ConstituencyMapper constituencyMapper;
-
-    // DODAWANIE GŁOSUJĄCEGO
+    // DODAWANIE WYBORCY
     public VoterDto createVoter(VoterDto voterDto) {
         if (voterDto == null) {
             return null;
@@ -39,5 +40,21 @@ public class VoterService {
                 voterDtoToSave.getPesel() + " " + voterDtoToSave.getConstituencyDto().getName());
 
         return voterDtoToSave;
+    }
+
+    // POBIERANIE WYBORCY PO ID
+    public VoterDto getVoterById(Long id) {
+        Optional<VoterDto> voter = voterRepository.findById(id).map(VoterMapper::toDto);
+        if (voter.isPresent()) {
+            return voter.get();
+        } else {
+            throw new RuntimeException(" Voter not found :: " + id);
+        }
+    }
+
+    // POBIERANIE WYBORCÓW
+    public List<VoterDto> getAllVoters() {
+        final List<Voter> all = voterRepository.findAll();
+        return VoterMapper.toListDto(all);
     }
 }
