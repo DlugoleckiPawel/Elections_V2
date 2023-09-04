@@ -26,4 +26,6 @@ public class Voter {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "constituency")
     private Constituency constituency;
+
+    private boolean hasVoted = false;
 }

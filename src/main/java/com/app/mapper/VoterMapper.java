@@ -23,6 +23,7 @@ public class VoterMapper {
                 .education(voter.getEducation())
                 .gender(voter.getGender())
                 .constituencyDto(voter.getConstituency() == null ? null : constituencyMapper.toDto(voter.getConstituency()))
+                .hasVoted(voter.isHasVoted())
                 .build();
     }
 
@@ -35,6 +36,7 @@ public class VoterMapper {
                 .education(voterDto.getEducation())
                 .gender(voterDto.getGender())
                 .constituency(voterDto.getConstituencyDto() == null ? null : constituencyMapper.toEntity(voterDto.getConstituencyDto()))
+                .hasVoted(voterDto.isHasVoted())
                 .build();
     }
 
