@@ -18,4 +18,5 @@ public class VoterDto {
     private Education education;
     private Gender gender;
     private ConstituencyDto constituencyDto;
+    private boolean hasVoted = false;
 }

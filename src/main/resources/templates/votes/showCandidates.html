@@ -19,6 +19,7 @@
             <th>Nazwisko</th>
             <th>Data urodzenia</th>
             <th>Partia polityczna</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,11 @@
             <td th:text="${candidate.surname}"></td>
             <td th:text="${candidate.birthday}"></td>
             <td th:text="${candidate.politicalPartyDto.name}"></td>
+            <td>
+                <form th:action="@{|/votes/addVote/${candidate.id}/${voter.id}|}" th:method="post">
+                    <button type="submit">Oddaj głos</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -4,8 +4,10 @@ import com.app.dto.CandidateDto;
 import com.app.dto.VoterDto;
 import com.app.exception.TokenExpiredException;
 import com.app.exception.TokenNotFoundException;
+import com.app.exception.VoteAlreadyExistsException;
 import com.app.service.CandidateService;
 import com.app.service.TokenService;
+import com.app.service.VoteService;
 import com.app.service.VoterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ public class VoteController {
     private final VoterService voterService;
     private final TokenService tokenService;
     private final CandidateService candidateService;
+    private final VoteService voteService;
 
     /**
      * Metoda get do wyświetlenia wyborców oraz możliwość ich zarejestrowania
@@ -28,7 +31,7 @@ public class VoteController {
 
     @GetMapping("/voters")
     public String getAllVoters(Model model) {
-        List<VoterDto> voters = voterService.getAllVoters();
+        List<VoterDto> voters = voterService.getVotersWhoDidNotVoteYet();
         model.addAttribute("voters", voters);
         return "votes/voters";
     }
@@ -55,6 +58,7 @@ public class VoteController {
 
             List<CandidateDto> candidateForVoter = candidateService.getCandidateForVoter(voterDto);
             model.addAttribute("candidates", candidateForVoter);
+            model.addAttribute("voter", voterDto);
             return "votes/showCandidates";
 
         } catch (TokenNotFoundException e) {
@@ -65,5 +69,15 @@ public class VoteController {
             model.addAttribute("voter", voterService.getVoterById(id));
             return "votes/tokenExpired";
         }
+    }
+
+    /**
+     * Metoda zliczająca głosy
+     */
+
+    @PostMapping("/addVote/{candidateId}/{voterId}")
+    public String addVote(@PathVariable Long candidateId, @PathVariable Long voterId, Model model) {
+        voteService.addVote(candidateId, voterId);
+        return "votes/success";
     }
 }

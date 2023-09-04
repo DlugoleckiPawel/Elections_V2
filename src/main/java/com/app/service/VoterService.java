@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -50,6 +51,13 @@ public class VoterService {
         } else {
             throw new RuntimeException(" Voter not found :: " + id);
         }
+    }
+
+    public List<VoterDto> getVotersWhoDidNotVoteYet() {
+        List<Voter> voters = voterRepository.findByHasVotedFalse();
+        return voters.stream()
+                .map(VoterMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     // POBIERANIE WYBORCÓW
