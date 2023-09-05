@@ -2,9 +2,9 @@ package com.app.controller;
 
 import com.app.dto.CandidateDto;
 import com.app.dto.VoterDto;
+import com.app.exception.MaxAttemptReachedException;
 import com.app.exception.TokenExpiredException;
 import com.app.exception.TokenNotFoundException;
-import com.app.exception.VoteAlreadyExistsException;
 import com.app.service.CandidateService;
 import com.app.service.TokenService;
 import com.app.service.VoteService;
@@ -62,9 +62,13 @@ public class VoteController {
             return "votes/showCandidates";
 
         } catch (TokenNotFoundException e) {
-            model.addAttribute("error", "Podano niepoprawny token");
+            model.addAttribute("error", "Podano niepoprawny token.");
             model.addAttribute("voter", voterService.getVoterById(id));
             return "votes/register";
+        } catch (MaxAttemptReachedException e) {
+            model.addAttribute("error", "Liczba prób została przekroczona");
+            model.addAttribute("voter", voterService.getVoterById(id));
+            return "votes/maxAttemptReached";
         } catch (TokenExpiredException e) {
             model.addAttribute("voter", voterService.getVoterById(id));
             return "votes/tokenExpired";
