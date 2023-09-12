@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyniki wyborów w okręgu wyborczym</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Wyniki wyborów w okręgu wyborczym: <span th:text="${constituency.name}"></span></h1>
+    <table border="1" class="table table-striped table-responsive-md">
+
+        <thead>
+        <tr>
+            <th>Kandydat</th>
+            <th>Liczba głosów</th>
+            <th>Procentowa liczba głosów</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${results}">
+            <td><span th:text="${result.candidateDto.name}"></span> <span th:text="${result.candidateDto.surname}"></span></td>
+            <td><span th:text="${result.numberOfVotes}"></span></td>
+            <td><span th:text="${result.numberVotesInPercent}"></span> %</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <a th:href="@{/}" class="btn btn-primary"> Powrót </a>
+    </div>
+</div>
+
+</body>
+</html>
