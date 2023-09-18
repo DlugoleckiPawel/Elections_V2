@@ -16,16 +16,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ConstituencyService {
     private final ConstituencyRepository constituencyRepository;
-    private final ConstituencyMapper constituencyMapper;
 
     // DODAWANIE OKRĘGU WYBORCZEGO
     public ConstituencyDto createConstituency(ConstituencyDto constituencyDto) {
         if (constituencyDto == null) {
             return null;
         }
-        return constituencyMapper.toDto(
+        return ConstituencyMapper.toDto(
                 constituencyRepository.save(
-                        constituencyMapper.toEntity(constituencyDto)
+                        ConstituencyMapper.toEntity(constituencyDto)
                 ));
     }
 
@@ -49,7 +48,7 @@ public class ConstituencyService {
     public List<ConstituencyDto> getAllConstituencies() {
         final List<Constituency> all = constituencyRepository.findAll();
 
-        return constituencyMapper.toListDto(all);
+        return ConstituencyMapper.toListDto(all);
     }
 
     // POBIERANIE OKRĘGU WYBORCZEGO PO ID

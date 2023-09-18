@@ -29,34 +29,31 @@ public class CandidateService {
     private final CandidateRepository candidateRepository;
     private final ConstituencyRepository constituencyRepository;
     private final PoliticalPartyRepository politicalPartyRepository;
-    private final CandidateMapper candidateMapper;
-    private final ConstituencyMapper constituencyMapper;
-    private final PoliticalPartyMapper politicalPartyMapper;
 
     // DODAWANIE KANDYDATA
     public CandidateDto createCandidate(CandidateDto candidateDto) {
         if (candidateDto == null) {
             return null;
         }
-        ConstituencyDto constituencyDto = constituencyMapper.toDto(constituencyRepository
+        ConstituencyDto constituencyDto = ConstituencyMapper.toDto(constituencyRepository
                 .findById(candidateDto.getConstituencyDto().getId())
                 .orElseThrow());
 
-        PoliticalPartyDto politicalPartyDto = politicalPartyMapper.toDto(politicalPartyRepository
+        PoliticalPartyDto politicalPartyDto = PoliticalPartyMapper.toDto(politicalPartyRepository
                 .findById(candidateDto.getPoliticalPartyDto().getId())
                 .orElseThrow());
 
-        Candidate candidate = candidateMapper.toEntity(candidateDto);
-        candidate.setConstituency(constituencyMapper.toEntity(constituencyDto));
-        candidate.setPoliticalParty(politicalPartyMapper.toEntity(politicalPartyDto));
+        Candidate candidate = CandidateMapper.toEntity(candidateDto);
+        candidate.setConstituency(ConstituencyMapper.toEntity(constituencyDto));
+        candidate.setPoliticalParty(PoliticalPartyMapper.toEntity(politicalPartyDto));
 
-        return candidateMapper.toDto(candidateRepository.save(candidate));
+        return CandidateMapper.toDto(candidateRepository.save(candidate));
     }
 
     // AKTUALIZACJA KANDYDATA
     public CandidateDto updateCandidate(CandidateDto candidateDto) {
-        if (candidateDto == null || !candidateRepository.existsById(candidateDto.getId())) {
-            throw new NullPointerException("Constituency is null");
+        if (candidateDto == null) {
+            throw new NullPointerException("Candidate is null");
         }
 
         PoliticalParty politicalParty = politicalPartyRepository
@@ -86,7 +83,7 @@ public class CandidateService {
     public List<CandidateDto> getAllCandidates() {
         final List<Candidate> all = candidateRepository.findAll();
 
-        return candidateMapper.toListDto(all);
+        return CandidateMapper.toListDto(all);
     }
 
 
@@ -108,7 +105,7 @@ public class CandidateService {
     public List<CandidateDto> getCandidateForVoter(VoterDto voterDto) {
         Long constituencyId = voterDto.getConstituencyDto().getId();
 
-         return getAllCandidates()
+        return getAllCandidates()
                 .stream()
                 .filter(candidate -> candidate.getConstituencyDto().getId().equals(constituencyId))
                 .toList();

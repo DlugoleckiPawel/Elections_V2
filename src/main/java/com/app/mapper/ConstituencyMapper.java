@@ -30,7 +30,7 @@ public class ConstituencyMapper {
                 .build();
     }
 
-    public List<ConstituencyDto> toListDto(Collection<Constituency> constituencies) {
+    public static List<ConstituencyDto> toListDto(Collection<Constituency> constituencies) {
         if (constituencies == null) {
             return null;
         }
