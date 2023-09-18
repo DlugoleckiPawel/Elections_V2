@@ -14,15 +14,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PoliticalPartyService {
     private final PoliticalPartyRepository politicalPartyRepository;
-    private final PoliticalPartyMapper politicalPartyMapper;
+
     // DODAWANIE PARTII POLITYCZNEJ
     public PoliticalPartyDto createPoliticalParty(PoliticalPartyDto politicalPartyDto) {
         if (politicalPartyDto == null) {
             return null;
         }
-        return politicalPartyMapper.toDto(
+        return PoliticalPartyMapper.toDto(
                 politicalPartyRepository.save(
-                        politicalPartyMapper.toEntity(politicalPartyDto)
+                        PoliticalPartyMapper.toEntity(politicalPartyDto)
                 ));
     }
     // AKTUALIZACJA PARTII POLITYCZNEJ
@@ -40,7 +40,7 @@ public class PoliticalPartyService {
     // POBIERANIE PARTII POLITYCZNYCH
     public List<PoliticalPartyDto> getAllParties() {
         final List<PoliticalParty> all = politicalPartyRepository.findAll();
-        return politicalPartyMapper.toListDto(all);
+        return PoliticalPartyMapper.toListDto(all);
     }
     // POBIERANIE PARTII POLITYCZNEJ PO ID
     public PoliticalPartyDto getPoliticalPartyById(Long id) {

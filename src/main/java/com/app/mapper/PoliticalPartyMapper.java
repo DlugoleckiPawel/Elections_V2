@@ -24,7 +24,7 @@ public class PoliticalPartyMapper {
                 .candidates(new HashSet<>())
                 .build();
     }
-    public List<PoliticalPartyDto> toListDto(Collection<PoliticalParty> politicalParties) {
+    public static List<PoliticalPartyDto> toListDto(Collection<PoliticalParty> politicalParties) {
         if (politicalParties == null) {
             return null;
         }
